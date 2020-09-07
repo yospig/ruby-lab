@@ -1,4 +1,4 @@
-# frozen_string_literal: true
+# frozen_string_literal: false
 
 # メソッド名は変数と同じくスネークケース
 def add(a, b)
@@ -112,5 +112,24 @@ puts multiple_of_three?(5)
 puts multiple_of_three?(6)
 puts '---'
 
-# !で終わるメソッドは注意が必要。破壊的メソッド。
+# !で終わるメソッドは注意が必要。破壊的メソッドだったり。
 a = 'Ruby'
+# upcaseだと元変数は変化しない
+puts a.upcase
+puts a
+# upcase!だと元変数には快適変更を与える
+b = 'Ruby'
+puts b.upcase!
+puts b
+puts '---'
+# 自分で!付きメソッドを定義
+def reverse_upcase!(s)
+  s.reverse!.upcase!
+end
+puts reverse_upcase!('Hello-World')
+# !つけないバージョン。ただ付けることができるだけで挙動はメソッド内の処理に依存する…?
+def reverse_upcase(s)
+  s.reverse!.upcase!
+end
+puts reverse_upcase('Hello-World')
+puts '---'
