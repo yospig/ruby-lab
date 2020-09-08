@@ -64,3 +64,29 @@ puts c
 # aは別オブジェクトなので影響なし
 puts a
 puts '---'
+
+# 標準ライブラリ, gem利用
+## requireでライブラリ読み込み, Ruby実行ディレクトリが起点のパス
+require 'Date'
+puts Date.today
+puts '---'
+## 自前ライブラリ読み込みrequire .rbは省略できる
+puts require './sample' # 初回読み込み, trueを返す, require_once
+puts require './sample' # 2回目は読み込めない, falseが返る
+puts '---'
+## 自前ライブラリ読み込みload .rbは省略できない
+puts load './sample.rb' # 無条件読み込み
+## reqire_relative
+require_relative './sample' # 自分のディレクトリからの相対パスで./sample.rbを読み込む
+puts '---'
+
+# puts, print, pメソッド
+## puts 末尾に改行を加えて戻り値を出力する。文字列の改行コードは認識する。puts自身の戻り値はnil
+puts "123\n456"
+puts '---'
+## print 末尾に改行を加えず戻り値を出力する。文字列の改行コードは認識する。print自身の戻り値はnil
+print "123\n456"
+puts '---'
+## p 末尾に改行を加えて戻り値を出力する。オブジェクトをダブルクォートを加えて返す。
+p "123\n456"
+puts '---'
