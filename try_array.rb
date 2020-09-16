@@ -150,3 +150,93 @@ p [1, 2, 3, 4, 5, 6].select { |n| n.odd? }
 p [1, 2, 3, 4, 5, 6].select(&:odd?)
 ## ブロック引数が1つ、ブロック内で引数無しのメソッドの呼び出し1回のみのときに「&:メソッド」を使える
 puts '---'
+
+# Range
+## 範囲オブジェクト
+p (1..5).class
+range = 1..5 # 末尾を含む 1以上5以下
+p range.include?(0) # false
+p range.include?(4.9) # true
+p range.include?(5) # true
+range = 1...5 # 末尾を含まない 1以上5未満
+p range.include?(0) # false
+p range.include?(4.9) # true
+p range.include?(5) # false
+puts '---'
+
+## 範囲オブジェクトを直接使ってメソッド呼び出すときはカッコで囲む
+# p 1...5.include?(1) # undefined method `include?' for 5:Integer (NoMethodError)
+p (1...5).include?(1) # true
+puts '---'
+
+## 配列や文字列の一部を抜き出す
+a = [1, 2, 3, 4, 5]
+p a[1..3]
+s = 'abcdefg'
+p s[1..3]
+puts '---'
+
+## 範囲の判定
+### 不等号で判定
+def liquid_1?(temperature)
+  0 <= temperature && temperature < 100
+end
+p liquid_1?(-1)
+p liquid_1?(0)
+p liquid_1?(99)
+p liquid_1?(100)
+puts '---'
+### 範囲オブジェクトで判定
+def liquid_2?(temperature)
+  (0...100).include?(temperature)
+end
+p liquid_2?(-1)
+p liquid_2?(0)
+p liquid_2?(99)
+p liquid_2?(100)
+puts '---'
+
+### case利用
+def charge(age)
+  case age
+  when 0..5
+    '$0'
+  when 6..12
+    '$3'
+  when 13..20
+    '$6'
+  else
+    '$10'
+  end
+end
+p charge(5)
+p charge(12)
+p charge(20)
+p charge(25)
+puts '---'
+
+### 配列化する
+p 1..5
+p (1..5).to_a
+p (1...5).to_a
+p ('a'..'f').to_a
+#### splat展開
+p [*1..5] # (1..5).to_aと同じ
+puts '---'
+
+### 繰り返し処理
+#### 範囲オブジェクト > 配列 > each
+numbers = (1..4).to_a
+sum = 0
+numbers.each { |n| sum += n }
+p sum # 1 + 2 + 3 + 4
+#### 範囲オブジェクトまま > each
+sum = 0
+(1..4).each { |n| sum += n }
+p sum # 1 + 2 + 3 + 4
+#### stepで値を増やす間隔を指定できる
+numbers = []
+##### 1-10まで2つ飛ばし
+(1..10).step(2) { |n| numbers << n }
+p numbers # [1, 3, 5, 7, 9]
+puts '---'
