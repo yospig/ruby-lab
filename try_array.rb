@@ -47,7 +47,7 @@ p a = [1, 'apple', 2, 'orrange', 3, 'melon']
 p a[0] # 1
 p a[3] # 'orrange'
 p a[-1] # -1は末尾 'melon'
-p a[100] # 存在しないキーはnil
+p a[100] # 存在しないキ���はnil
 # 要素の削除はdelete at
 a.delete_at(4)
 p a
@@ -139,4 +139,14 @@ p inject_sum
 ## 文字列でも可能
 week_days = %w[Mon Tue Wed Thu Fri Sat].inject('Sun') { |result, n| result + n }
 p week_days
+puts '---'
+
+# &とシンボル
+p %w[ruby java perl].map { |s| s.upcase }
+## &:で書き換えられる
+p %w[ruby java perl].map(&:upcase)
+p [1, 2, 3, 4, 5, 6].select { |n| n.odd? }
+## &:で書き換えられる
+p [1, 2, 3, 4, 5, 6].select(&:odd?)
+## ブロック引数が1つ、ブロック内で引数無しのメソッドの呼び出し1回のみのときに「&:メソッド」を使える
 puts '---'
